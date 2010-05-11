@@ -337,6 +337,22 @@ module CassandraThrift
 
     end
 
+    class RowPredicate
+      include ::Thrift::Struct
+      REGEX = 1
+
+      ::Thrift::Struct.field_accessor self, :regex
+      FIELDS = {
+        REGEX => {:type => ::Thrift::Types::STRING, :name => 'regex', :optional => true}
+      }
+
+      def struct_fields; FIELDS; end
+
+      def validate
+      end
+
+    end
+
     # The semantics of start keys and tokens are slightly different.
     # Keys are start-inclusive; tokens are start-exclusive.  Token
     # ranges may also wrap -- that is, the end token may be less

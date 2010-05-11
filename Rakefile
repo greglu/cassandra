@@ -2,8 +2,8 @@ unless ENV['FROM_BIN_CASSANDRA_HELPER']
   require 'rubygems'
   require 'echoe'
 
-  Echoe.new("cassandra") do |p|
-    p.author = "Evan Weaver, Ryan King"
+  Echoe.new("cassandra-openplaces") do |p|
+    p.author = "Evan Weaver, Ryan King, Openplaces"
     p.project = "fauna"
     p.summary = "A Ruby client for the Cassandra distributed database."
     p.rubygems_version = ">= 0.8"

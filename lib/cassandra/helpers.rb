@@ -12,7 +12,16 @@ class Cassandra
       if args.last.is_a?(Hash)
         extras = args.last.keys - options.keys
         raise ArgumentError, "Invalid options #{extras.inspect[1..-2]} for #{caller[1]}" if extras.any?
-        options.merge!(args.pop)      
+        options.merge!(args.pop)
+
+        # Convert the :filter option to the proper string format
+        if options[:filter].is_a?(String)
+          options[:filter] = Regexp.quote(options[:filter])
+        elsif options[:filter].is_a?(Regexp)
+          options[:filter] = options[:filter].source
+        else
+          raise ArgumentError, "The :filter option needs to be a Regexp or a String representation of a regular expression"
+        end
       end
 
       # Ranges

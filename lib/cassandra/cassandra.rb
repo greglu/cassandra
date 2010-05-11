@@ -51,7 +51,8 @@ class Cassandra
     :start => nil,
     :finish => nil,
     :reversed => false,
-    :consistency => Consistency::ONE
+    :consistency => Consistency::ONE,
+    :filter => nil
   }.freeze
   
   THRIFT_DEFAULTS = {
@@ -223,7 +224,12 @@ class Cassandra
   def get_range(column_family, options = {})
     column_family, _, _, options = 
       extract_and_validate_params(column_family, "", [options], READ_DEFAULTS)
-    _get_range(column_family, options[:start].to_s, options[:finish].to_s, options[:count], options[:consistency])
+
+    if options[:filter]
+      _get_rows(column_family, options[:filter], options[:start].to_s, options[:finish].to_s, options[:count], options[:consistency])
+    else
+      _get_range(column_family, options[:start].to_s, options[:finish].to_s, options[:count], options[:consistency])
+    end
   end
 
   # Count all rows in the column_family you request. Requires the table

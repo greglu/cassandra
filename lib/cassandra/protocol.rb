@@ -88,5 +88,13 @@ class Cassandra
       range = CassandraThrift::KeyRange.new(:start_key => '', :end_key => '')
       client.get_range_slices(@keyspace, column_parent, predicate, range, 1).each{|i| yield i.key }
     end
+
+    def _get_rows(column_family, regex, start, finish, count, consistency)
+      column_parent = CassandraThrift::ColumnParent.new(:column_family => column_family)
+      predicate = CassandraThrift::SlicePredicate.new(:slice_range => CassandraThrift::SliceRange.new(:start => '', :finish => ''))
+      range = CassandraThrift::KeyRange.new(:start_key => start, :end_key => finish)
+      rowpredicate = CassandraThrift::RowPredicate.new(:regex => regex)
+      client.get_rows(@keyspace, column_parent, predicate, rowpredicate, range, 1)
+    end
   end
 end

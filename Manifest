@@ -24,6 +24,7 @@ test/cassandra_client_test.rb
 test/cassandra_mock_test.rb
 test/cassandra_test.rb
 test/comparable_types_test.rb
+test/eventmachine_test.rb
 test/ordered_hash_test.rb
 test/test_helper.rb
 vendor/gen-rb/cassandra.rb
